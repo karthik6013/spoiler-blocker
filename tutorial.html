@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Spoiler Slayer</title>
+        <link href="/styles/popup.css" rel="stylesheet" />
+        <link href="/styles/content.css" rel="stylesheet" />
+
+        <style>
+            section {
+                height: 600px;
+            }
+
+            #wrapper {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+
+            #wrapper h2 {
+                padding-top: 0;
+            }
+
+            ol {
+                height: 100%;
+                list-style-type: none;
+                text-align: center;
+                padding: 0;
+                margin: 0;
+                position: relative;
+            }
+
+            ol > li {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                transition: opacity .5s ease-in .1s;
+            }
+
+            ol > li.active {
+                opacity: 1;
+                transition: opacity .75s ease-out;
+            }
+
+            img {
+                width: 600px;
+            }
+
+            .toolbar-icon-example {
+                height: .9em;
+                width: 1em;
+            }
+
+            li .stacking > img {
+                position: absolute;
+            }
+
+            li .stacking > img:not(:first-of-type) {
+                opacity: 0;
+            }
+
+            li.active .stacking > img:not(:first-of-type) {
+                animation: fade-in 1s forwards;
+            }
+
+            li.active .stacking > img:nth-of-type(2) {
+                animation-delay: 1.5s;
+            }
+
+            li.active .stacking > img:nth-of-type(3) {
+                animation-delay: 3s;
+            }
+
+            li.active .stacking > img:nth-of-type(4) {
+                animation-delay: 4.5s;
+            }
+
+            li.active .stacking > img:nth-of-type(5) {
+                animation-delay: 6s;
+            }
+
+            li.active .stacking > img:nth-of-type(6) {
+                animation-delay: 7.5s;
+            }
+
+            li.active .stacking > img:nth-of-type(7) {
+                animation-delay: 9s;
+            }
+
+            li.active .stacking > img:nth-of-type(8) {
+                animation-delay: 10.5s;
+            }
+
+            li.active .stacking > img:nth-of-type(9) {
+                animation-delay: 12s;
+            }
+
+            li.active .stacking > img:nth-of-type(10) {
+                animation-delay: 13.5s;
+            }
+
+            .stacking, .tri-image {
+                width: 100%;
+                height: 450px;
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .tri-image > img {
+                position: absolute;
+                opacity: 0;
+            }
+
+            li.active .tri-image > img {
+                width: 60%;
+                position: absolute;
+                box-shadow: 0 0 15px grey;
+                animation: fade-in .75s forwards;
+            }
+
+            li.active .tri-image > img:nth-of-type(1) {
+                left: 0;
+                top: 0;
+                animation-delay: .75s;
+            }
+
+            li.active .tri-image > img:nth-of-type(2) {
+                right: 0;
+                top: 50%;
+                transform:translateY(-50%);
+                animation-delay: 1.5s;
+            }
+
+            li.active .tri-image > img:nth-of-type(3) {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 0;
+                animation-delay: 2.25s;
+            }
+
+            @keyframes fade-in {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+        </style>
+    </head>
+
+    <body id="options">
+        <h2>Spoiler Slayer</h2>
+        <hr />
+        <section>
+            <div id="wrapper">
+                <ol>
+                    <li class="active">
+                        <h2>
+                            Click the Spoiler Slayer icon <img src="assets/icons/battered-axe.svg" class="toolbar-icon-example" alt="battered axe" />
+                            to customize blocking options
+                        </h2>
+                        <div class="stacking">
+                            <img src="./assets/images/tutorial/step_1/reddit.png" />
+                            <img src="./assets/images/tutorial/step_1/reddit_popup.png" />
+                            <img src="./assets/images/tutorial/step_1/reddit_popup_enabled.png" />
+                            <img src="./assets/images/tutorial/step_1/reddit_popup_enabled_blur.png" />
+                            <img src="./assets/images/tutorial/step_1/reddit_popup_enabled_blurred_no_text.png" />
+                            <img src="./assets/images/tutorial/step_1/reddit_popup_enabled_censor.png" />
+                            <img src="./assets/images/tutorial/step_1/reddit_censor.png" />
+                            <img src="./assets/images/tutorial/step_1/reddit_blur.png" />
+                            <img src="./assets/images/tutorial/step_1/reddit.png" />
+                        </div>
+                    </li>
+                    <li>
+                        <h2>
+                            Click the Spoiler Slayer subscribe icon
+                            <img src="assets/icons/battered-axe-plus-one.svg" class="toolbar-icon-example" alt="battered axe" />
+                            when on a supported site to subscribe to a list that is continuously updated.
+                        </h2>
+                        <div class="stacking">
+                            <img src="./assets/images/tutorial/step_2/gh_unsubscribed.png" />
+                            <img src="./assets/images/tutorial/step_2/gh_unsubscribed_popup.png" />
+                            <img src="./assets/images/tutorial/step_2/gh_subscribed_popup.png" />
+                            <img src="./assets/images/tutorial/step_2/gh_subscribed.png" />
+                            <img src="./assets/images/tutorial/step_2/gh_unsubscribed.png" />
+                        </div>
+                    </li>
+                    <li>
+                        <h2>
+                            Use advanced settings to fine tune spoiler blocking on sites you visit most.
+                        </h2>
+                        <div class="stacking">
+                            <img src="./assets/images/tutorial/step_3/settings.png" />
+                            <img src="./assets/images/tutorial/step_3/settings_default_sites_expanded.png" />
+                            <img src="./assets/images/tutorial/step_3/settings_sub_exampled.png" />
+                            <img src="./assets/images/tutorial/step_3/settings_sites.png" />
+                            <img src="./assets/images/tutorial/step_3/settings.png" />
+                        </div>
+                    </li>
+                    <li class="last">
+                        <h2>
+                            That's it! Enjoy your spoiler-free browsing!
+                        </h2>
+                        <div class="tri-image">
+                            <img src="./assets/images/tutorial/facebook.png">
+                            <img src="./assets/images/tutorial/youtube.png">
+                            <img src="./assets/images/tutorial/twitter.png">
+                        </div>
+                </ol>
+            </div>
+        </section>
+
+        <footer>
+            <div class="right">
+                <ul class="menu-h">
+                    <li><a id="options" href="/options.html">Skip tutorial</a></li>
+                </ul>
+            </div>
+        </footer>
+
+        <script src="./scripts/tutorial.js"></script>
+        <script src="./scripts/lib/helpers.js"></script>
+        <script src="./scripts/lib/msgApi.js"></script>
+        <script src="./scripts/lib/models.js"></script>
+        <script src="./scripts/lib/settings.js"></script>
+    </body>
+</html>

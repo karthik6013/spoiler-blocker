@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Spoiler Slayer</title>
+        <link rel="stylesheet" type="text/css" href="styles/popup.css" />
+        <link rel="stylesheet" type="text/css" href="styles/content.css" />
+        <style>
+            /* Force centered spoiler info in the example */
+            .spoiler-blocker-glamoured {
+                padding: .5em;
+                position: relative;
+                height: 100%;
+            }
+            h2.spoiler-blocker-spoiler-info {
+                text-align: center !important;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                margin-top: .25em !important;
+            }
+        </style>
+    </head>
+
+    <body id="popup">
+        <!-- <img class="badge-example" src="assets/icons/icon48.png" /> -->
+        <h1>Spoiler Slayer</h1>
+        <hr />
+        <div id="subscribe"  class='loading'>
+            <h1><custom-icon icon="reload" class="loading spin"></custom-icon></h1>
+
+            <form id='new-subscription'>
+                <h3>Found list:
+                    <span id="list-name">Unnamed List</span>
+                </h3>
+
+                <div class="tip github-rev-warning none">
+                    <p>
+                        <custom-icon icon="tip"></custom-icon>
+                        This is a revision of a list that will never change or update.
+                        For a list that updates, try the <a href="" target="_blank">latest version</a> instead.
+                    </p>
+                </div>
+
+                <h2>
+                    <label>
+                        <input type="checkbox" name="subscribe" class="no-auto-save" />
+                        Subscribed
+                    </label>
+                </h2>
+
+                <div class="subscription-preview">
+                    <div>
+                        <h4>
+                            <label>
+                                <input type="checkbox" name="useSpoilers" class="no-auto-save" />
+                                Spoilers (<span id="spoilers-count">-</span>)
+                            </label>
+                        </h4>
+                        <ul class='spoilers indent'></ul>
+                    </div>
+                    <div>
+                        <h4>
+                            <label>
+                                <input type="checkbox" name="useSites" class="no-auto-save" />
+                                Sites &amp; Selectors (<span id="sites-count">-</span>)
+                            </label>
+                        </h4>
+                        <ul class='sites indent'></ul>
+                    </div>
+                </div>
+                <input type="hidden" name="url" />
+                <input type="submit" class="none" />
+
+                <p>
+                    <small>
+                        Remember to only subscribe to lists you trust! Lists can be updated at any time by their author.
+                    </small>
+                </p>
+            </form>
+
+            <div class="update-failed-banner none">
+                <h2>Invalid list</h2>
+                <pre class="update-failed-text">Unspecified error</pre>
+            </div>
+
+            <div class="github-rev-not-raw none">
+                <h2>Unsupported GitHub revision</h2>
+                <p>
+                    To use this list, please close this menu and click the "raw" button
+                    near the top right of the page (flashing), then click the Spoilers Blocker
+                    icon again.
+                </p>
+            </div>
+
+            <a href="#" id="dismiss" class="right">Settings</a>
+        </div>
+
+        <div id="settings">
+            <ul>
+                <li>
+                    <label class="checkbox">
+                        <input class="popup-setting" type="checkbox" name="blockingEnabled" />
+                        Enable spoiler blocking
+                    </label>
+                </li>
+                <li>
+                    <label class="checkbox">
+                        <input class="popup-setting" type="checkbox" name="destroySpoilers" />
+                        Remove spoilers instead of censoring
+                    </label>
+                </li>
+                <li class="indent">
+                    <label class="checkbox">
+                        <input class="popup-setting" type="checkbox" name="showSpecificSpoiler" />
+                        Show the phrase that caused the block
+                    </label>
+                </li>
+                <li class="indent">
+                    <label class="checkbox">
+                        <input class="popup-setting" type="checkbox" name="warnBeforeReveal" />
+                        Warn before revealing a spoiler
+                    </label>
+                </li>
+                <li>
+                    <label class="badge-counter">
+                        The badge shows
+                        <div>
+                            <select name="badgeDisplay">
+                                <option value="life">all lifetime blocks.</option>
+                                <option value="lifeSite">all lifetime blocks for site.</option>
+                                <option value="session">blocks during this session.</option>
+                                <option value="sessionSite">blocks during session for site.</option>
+                                <option value="pageload">blocks on this page load.</option>
+                                <option value="none">nothing.</option>
+                            </select>
+                        </div>
+                    </label>
+                </li>
+            </ul>
+
+            <hr />
+
+            <div>
+                <div class="sliders row">
+                    <div class="col">
+                        <div>
+                            <label>
+                                <input type="checkbox" name="blurSpoilers" />
+                                Spoiler blur
+                            </label>
+                            <br />
+                            <input
+                                type="range"
+                                name="heavyBlur"
+                                min="0"
+                                max="20"
+                            />
+                        </div>
+                        <div>
+                            <label for="hoverBlur">Hover blur</label><br />
+                            <input
+                                type="range"
+                                name="hoverBlur"
+                                min="0"
+                                max="20"
+                            />
+                        </div>
+                        <div>
+                            <label for="transitionDuration">Transition Duration</label><br />
+                            <input type="range" name="transitionDuration" min="0" max="4" />
+                        </div>
+                    </div>
+
+                    <template id="example-template">
+                        <div class="spoiler-blocker-glamoured">
+                            <div class="content">Ron is Dumbledore!</div>
+                            <img src="assets/images/Deathly_Hallows_Sign.svg" />
+                        </div>
+                    </template>
+
+                    <div class="col" id="example">
+
+                    </div>
+                </div>
+                <hr />
+                <div class="row" id="quick-adds">
+                    <div class="col" id="quick-add-spoiler-content">
+                        <label>
+                            <div class="help">
+                                <i class="icon">?</i>
+                                <span class="help-text">
+                                    Add words or phrases separated by commas, then push enter to save
+                                    to your block list.
+                                     <br />
+                                     Use the advanced options to edit, remove, or create complex regex
+                                    entries.
+                                </span>
+                            </div>
+                            Add Spoilers
+                            <!-- fun fact: forms without a submit button will only submit when pushing enter if they have exactly 1 text input -->
+                            <form id="quick-add-spoiler-form">
+                                <input
+                                    class="no-auto-save"
+                                    autocomplete="off"
+                                    type="text"
+                                    name="spoiler"
+                                    id="new-spoiler"
+                                    placeholder="dumbledore, maisie williams, jean-luc picard"
+                                />
+                            </form>
+                        </label>
+                    </div>
+                    <div class="col" id="quick-add-selector-content">
+                        <label for="selector">
+                            <div class="help">
+                                <i class="icon">?</i>
+                                <span class="help-text">
+                                    Add a CSS selector that targets elements on
+                                    the page that might contains spoilers.
+                                    Elements will be highlighted when you enter a valid selector.
+                                    For best performance, be as specific as possible.
+                                    <br />
+                                    Use the advanced options to edit or remove the selector.
+                                </span>
+                            </div>
+                        </label>
+                        Add Selector
+                        <form id="quick-add-selector-form">
+                            <input
+                                class="no-auto-save"
+                                autocomplete="off"
+                                type="text"
+                                id="new-selector"
+                                name="selector"
+                                placeholder="section > article"
+                            />
+                            <span id="current-site-display">@ ???</span>
+                            <input name="current-site" id="current-site" class="none" />
+                            <input type="submit" class="none" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="left">
+                <ul class="menu-h anti-debug">
+                    <li class="">
+                        <span id="block-count">Lots of spoilers blocked</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="right">
+                <ul class="menu-h">
+                    <!-- <li class="debug">
+                        <label>
+                            <input type="checkbox" name="disableOnDocReady" value="1" />
+                            No doc ready
+                        </label>
+                    </li> -->
+                    <li class="debug">
+                        <label><input type="checkbox" name="debug" />Log msgs</label>
+                    </li>
+                    <li class="debug"><a href="popup.html" class="open-page">Popup</a></li>
+                    <li><a href="#" id="open-options-page">Advanced options</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <script src="scripts/lib/msgApi.js" type="text/javascript"></script>
+        <script src="scripts/lib/helpers.js" type="text/javascript"></script>
+        <script src="scripts/lib/settings.js" type="text/javascript"></script>
+        <script src="scripts/lib/models.js" type="text/javascript"></script>
+        <script src="scripts/lib/components.js" type="text/javascript"></script>
+        <script src="scripts/content.js" type="text/javascript"></script>
+        <script src="scripts/popup.js" type="text/javascript"></script>
+    </body>
+</html>
